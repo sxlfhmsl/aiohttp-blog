@@ -102,3 +102,7 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# IDEA相关过滤项
+.idea/
+.idea/*
