@@ -6,7 +6,7 @@
 from aiohttp import web
 
 
-def create_app(argv):
+async def create_app(argv):
     """
     创建初始化web服务器
     :param argv: 参数
