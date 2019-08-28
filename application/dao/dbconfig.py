@@ -7,7 +7,10 @@
 import aiomysql
 
 
-class MySqlConfig:
+class AioMysqlConfig:
+    """
+    aiomysql使用的配置类
+    """
     host = 'localhost'
     port = 3306
     user = 'root'
@@ -24,9 +27,9 @@ class MySqlConfig:
         cls.loop = loop
 
 
-class RedisConfig:
+class AioRedisConfig:
     """
-    Redis 连接信息
+    aioredis使用的配置类
     """
     address = ('localhost', 6379)
     password = 'admin123'
