@@ -1,1 +1,5 @@
 运行异步服务器命令（CLI）        -m aiohttp.web -H 0.0.0.0 -P 8080 application:create_app
+
+# python包本地安装
+python setup.py build
+python setup.py install
