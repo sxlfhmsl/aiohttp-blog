@@ -15,7 +15,7 @@ class AioMysqlConfig:
     port = 3306
     user = 'root'
     password = 'admin123'
-    minsize = 5
+    minsize = 0
     maxsize = 30
     db = 'aiohttp-blog'
     loop = None
@@ -34,7 +34,7 @@ class AioRedisConfig:
     address = ('localhost', 6379)
     password = 'admin123'
     db = 0
-    minsize = 5
+    minsize = 0
     maxsize = 30
     encoding = 'utf8'
     loop = None

@@ -21,11 +21,11 @@ class RedisOp:
         :return:
         """
         if not cls.s_instance:
-            cls.s_instance = super(RedisOp, cls).__new__(*args, **kwargs)
+            cls.s_instance = super(RedisOp, cls).__new__(cls, *args, **kwargs)
         return cls.s_instance
 
     def __init__(self):
-        if hasattr(self, '__redis_pool'):
+        if hasattr(self, '_RedisOp__redis_pool'):
             # 保持连接池初始化1次
             return
         self.__redis_pool = None
@@ -64,11 +64,11 @@ class RedisOp:
         :param key: 键
         :return: 查询到的值
         """
-        async with self.__get_pool() as conn:
+        with await self.__get_pool() as conn:
             m_redis = aioredis.Redis(conn)
             return await m_redis.get(key)
 
-    async def set_normal(self, key, value, expire_time):
+    async def set_normal(self, key, value, expire_time=None):
         """
         添加或者设置 redis值
         :param key: 键
@@ -76,20 +76,20 @@ class RedisOp:
         :param expire_time: 过期时间
         :return: 执行结果
         """
-        async with self.__get_pool() as conn:
+        with await self.__get_pool() as conn:
             m_redis = aioredis.Redis(conn)
             if expire_time:
                 return await m_redis.setex(key, expire_time, value)
             else:
                 return await m_redis.set(key, value)
 
-    async def keys(self, pattern):
+    async def keys(self, pattern='*'):
         """
         获取按指定条件(pattern)过滤后的key
         :param pattern: 过滤条件
         :return:
         """
-        async with self.__get_pool() as conn:
+        with await self.__get_pool() as conn:
             m_redis = aioredis.Redis(conn)
             return await m_redis.keys(pattern=pattern)
 
@@ -99,7 +99,7 @@ class RedisOp:
         :param keys: 欲删除的keys
         :return:
         """
-        async with self.__get_pool() as conn:
+        with await self.__get_pool() as conn:
             m_redis = aioredis.Redis(conn)
             return await m_redis.delete(*keys)
 
@@ -108,7 +108,7 @@ class RedisOp:
         清空库中的条目
         :return:
         """
-        async with self.__get_pool() as conn:
+        with await self.__get_pool() as conn:
             m_redis = aioredis.Redis(conn)
             return await m_redis.flushdb()
 
@@ -118,7 +118,7 @@ class RedisOp:
         :param key: 键
         :return:
         """
-        async with self.__get_pool() as conn:
+        with await self.__get_pool() as conn:
             m_redis = aioredis.Redis(conn)
             return await m_redis.hgetall(key)
 
@@ -129,7 +129,7 @@ class RedisOp:
         :param values: 值字典
         :return:
         """
-        async with self.__get_pool() as conn:
+        with await self.__get_pool() as conn:
             m_redis = aioredis.Redis(conn)
             return await m_redis.hmset_dict(key, **values)
 

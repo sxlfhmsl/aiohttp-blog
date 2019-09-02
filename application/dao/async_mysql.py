@@ -41,7 +41,7 @@ class MySqlOp:
             db=config.db,
             loop=config.loop,
             charset=config.charset,
-            cursorclass=config.cursorclass)
+            cursorclass=config.cursor_class)
 
     def _get_pool(self):
         """
