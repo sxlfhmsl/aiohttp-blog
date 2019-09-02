@@ -33,6 +33,7 @@ class RedisOp:
     async def init_redis(self, config=None):
         """
         根据配置config初始化redis，并创建连接池
+        所有其他操作的第一步
         :param config: 相关配置参数
         :return:
         """
